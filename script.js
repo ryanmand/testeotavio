@@ -1,24 +1,27 @@
-const formNotas = document.getElementById('formNotas');
-const tabelaResultados = document.getElementById('tabelaResultados').getElementsByTagName('tbody')[0];
+function adicionarLinha() {
+  // Captura dos valores do formulário
+  var nome = document.getElementById("nome").value;
+  var matricula = document.getElementById("matricula").value;
+  var nota1 = parseFloat(document.getElementById("nota1").value);
+  var nota2 = parseFloat(document.getElementById("nota2").value);
+  var media = (nota1 + nota2) / 2;
+  var situacao = media >= 5 ? "Aprovado" : "Reprovado";
 
-formNotas.addEventListener('submit', (event) => {
-    event.preventDefault(); // Evita o envio padrão do formulário
+  // Criação da nova linha na tabela
+  var tabela = document.getElementById("tabela").getElementsByTagName('tbody')[0];
+  var novaLinha = tabela.insertRow(tabela.rows.length);
+  var celulaNome = novaLinha.insertCell(0);
+  var celulaMatricula = novaLinha.insertCell(1);
+  var celulaNota1 = novaLinha.insertCell(2);
+  var celulaNota2 = novaLinha.insertCell(3);
+  var celulaMedia = novaLinha.insertCell(4);
+  var celulaSituacao = novaLinha.insertCell(5);
 
-    const nome = document.getElementById('nome').value;
-    const matricula = document.getElementById('matricula').value;
-    const nota1 = parseFloat(document.getElementById('nota1').value);
-    const nota2 = parseFloat(document.getElementById('nota2').value);
-
-    const media = (nota1 + nota2) / 2;
-    const situacao = media >= 5 ? 'Aprovado' : 'Reprovado';
-
-    const novaLinha = tabelaResultados.insertRow();
-    novaLinha.insertCell().textContent = nome;
-    novaLinha.insertCell().textContent = matricula;
-    novaLinha.insertCell().textContent = nota1;
-    novaLinha.insertCell().textContent = nota2;
-    novaLinha.insertCell().textContent = media.toFixed(2); // Formata a média com 2 casas decimais
-    novaLinha.insertCell().textContent = situacao;
-
-    formNotas.reset(); // Limpa o formulário após o envio
-});
+  // Preenchimento das células da nova linha
+  celulaNome.innerHTML = nome;
+  celulaMatricula.innerHTML = matricula;
+  celulaNota1.innerHTML = nota1;
+  celulaNota2.innerHTML = nota2;
+  celulaMedia.innerHTML = media.toFixed(1);
+  celulaSituacao.innerHTML = situacao;
+}
